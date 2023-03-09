@@ -21,7 +21,7 @@ app.get('/contacts', function (request, response){
     response.render('contact_us');
 });
 
-app.get('/bmi', function (request, response){
+app.get('/', function (request, response){
     response.render('BMI');
 });
 

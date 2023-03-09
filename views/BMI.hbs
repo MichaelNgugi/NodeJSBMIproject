@@ -3,18 +3,22 @@
     <head>
         <meta charset="utf-8">
         <title>BMI Calculator</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
     <body>
         <h1>BMI Calculator</h1>
         <form action="http://localhost:3000/process-bmi" method="POST">
-            Weight in Kilograms:
-            <input type="text" name="weight" /> <br>
-            Height in meters:
-            <input type="text" name="height" />
-            <input type="submit" value="Submit" />
+            <div class="mb-3">
+                <label for="weight" class="form-label">Weight in Kilograms:</label>
+                <input type="nmuber" name="weight" class="form-control" id="weight">
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="height" class="form-label">Height in meters:</label>
+                <input type="nmuber" name="height" class="form-control" id="height">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <div>
-            <h2>Your BMI is: {{bmi}}</h2>
-        </div>
     </body>
 </html>
