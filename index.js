@@ -7,7 +7,6 @@ const fs = require('fs');
 const jsonParser = bodyParser.json();
 const fileName = 'BMI.json';
 let bmi = 0;
-var comment;
 
 // Load data from file
 let rawData = fs.readFileSync(fileName);
@@ -25,8 +24,8 @@ app.get('/', function (request, response){
     response.render('BMI');
 });
 
-app.get('/reports', function (request, response) {
-    response.send(data);
+app.get('/analysis', function (request, response) {
+    response.render('reports');
 });
 
 app.post('/process-contacts', urlEncodedParser, function (request, response) {
@@ -37,7 +36,7 @@ app.post('/process-bmi', urlEncodedParser, function (request, response) {
     var weight = request.body.weight;
     var height = request.body.height;
     bmi = weight / (height * height);
-    data.push([{bmi: bmi}]);
+    data.push({bmi: bmi});
     if (bmi < 18.5 ){
         comment = "Underweight";
     }else if(bmi >= 18.5) {
@@ -48,8 +47,34 @@ app.post('/process-bmi', urlEncodedParser, function (request, response) {
         comment = "Obesity";
     }
     response.render('bmi_report', {bmi, comment});
-    fs.writeFileSync(fileName, JSON.stringify(data));
+    fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
 });
+
+
+/*
+app.post('/process-bmi', jsonParser, (request, response) => {
+    var weight = request.body.weight;
+    var height = request.body.height;
+    var comment;
+    if(Number.isInteger(weight) || weight != null && Number.isInteger(height) || height != null) {
+        bmi = weight / (height * height);
+        data.push({bmi: bmi});
+        if (bmi < 18.5 ){
+            comment = "Underweight";
+        }else if(bmi >= 18.5) {
+            comment = "Normal weight";
+        }else if (bmi >= 25) {
+            comment = "Overweight";
+        }else if (bmi >= 30) {
+            comment = "Obesity";
+        }
+    }else {
+        response.end('Inputs have to be numbers');
+    }
+    response.render('bmi_report', {bmi, comment});
+    fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
+});
+*/
 
 app.listen(port);
 console.log('Server is listening on port 3000');

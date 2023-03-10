@@ -1,25 +1,33 @@
 const server = 'http://localhost:3000';
-var bmi;
+var BMI;
+var weight;
+var height;
 
 async function fetchBmi() {
-    const url = server + '/reports';
-    const options = {
-        method: 'GET',
-        headers: {
-            'Accept' : 'application/json'
-        }
-    }
-    const response = await fetch(url, options);
-    const reports = await response.json();
-    populateContent(reports);
+    $(document).ready(function(){
+        $.ajax({
+            url: "BMI.json",
+            method: "GET",
+            success: function(data) {
+                var value = [];
+                for(var i in data) {
+                    value.push(data[i].bmi);
+                }
+                populateContent(data);
+            }
+        });
+    });
 }
 
-function populateContent (reports) {
-    var div = document.getElementById('content');
+
+function populateContent() {
+    var table = document.getElementById('content');
     reports.forEach(report => {
-        var row = document.createElement('h5');
-        var text = document.createTextNode(report);
-        row.appendChild(text);
-        div.appendChild(row);
+        var row = document.createElement('tr');
+        var dataId = document.createElement('td');
+        var textId = document.createTextNode(report.bmi);
+        dataId.appendChild(textId);
+        row.appendChild(dataId);
+        table.appendChild(row);
     });
 }
