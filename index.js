@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const urlEncodedParser = bodyParser.urlencoded({extended: false});
 const fs = require('fs');
 const { report } = require('process');
+const { stringify } = require('querystring');
 const jsonParser = bodyParser.json();
 const fileName = 'BMI.json';
 let bmi = 0;
@@ -25,8 +26,20 @@ app.get('/', function (request, response){
     response.render('BMI');
 });
 
-app.get('/analysis', function (request, response) { 
-    response.render('reports', {data});
+app.get('/analysis', function (request, response) {
+    var sum = 0;
+    var size = Object.keys(data).length;
+    var average = 0;
+    for (var i=0; i<size; i++) {
+        sum += parseFloat(data[i].bmi);
+    }
+    average = sum/size;
+    response.render('reports', {average});
+    console.log(average);
+});
+
+app.get('/all', function (request, response) {
+    response.send(data);
 });
 
 app.post('/process-contacts', urlEncodedParser, function (request, response) {
@@ -37,7 +50,7 @@ app.post('/process-bmi', urlEncodedParser, function (request, response) {
     var weight = request.body.weight;
     var height = request.body.height;
     bmi = weight / (height * height);
-    data.push({bmi: bmi});
+    data.push({bmi});
     if (bmi < 18.5 ){
         comment = "Underweight";
     }else if(bmi >= 18.5) {

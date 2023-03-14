@@ -9,33 +9,21 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <title>BMI Reports</title>
     </head>
-    <body>
+    <body onload="fetchBmi()">
         <h1>BMI Reports</h1>
         <div>
             <table class="table table-striped">
                 <tr>
-                   <!-- <th scope="col">#</th> -->
+                    <th scope="col">#</th>
                     <th scope="col">Value</th>
                 </tr>
                 <tbody id="content"></tbody>
+                <tbody>
+                    <th scope="col">Average of all results</th>
+                    <th scope="col">{{average}}</th>
+                </tbody>
             </table>
         </div>
     </body>
-    <script>
-        var request = new XMLHttpRequest();
-        request.open("GET", "BMI.json", false);
-        request.send(null);
-        var rows = JSON.parse(request.responseText);
-        console.log(rows);
-
-        var table = document.getElementById('content');
-        rows.forEach(row => {
-            var tuple = document.createElement('tr');
-            var dataId = document.createElement('td');
-            var textId = document.createTextNode(row.bmi);
-            dataId.appendChild(textId);
-            row.appendChild(dataId);
-            table.appendChild(tuple);
-        });
-    </script>
+    <script src="js/app.js"></script>
 </html> 
