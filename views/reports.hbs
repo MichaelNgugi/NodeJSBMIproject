@@ -9,7 +9,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <title>BMI Reports</title>
     </head>
-    <body onload="fetchBmi()">
+    <body>
         <h1>BMI Reports</h1>
         <div>
             <table class="table table-striped">
@@ -21,5 +21,21 @@
             </table>
         </div>
     </body>
-    <script src="js/app.js"></script>
-</html>
+    <script>
+        var request = new XMLHttpRequest();
+        request.open("GET", "BMI.json", false);
+        request.send(null);
+        var rows = JSON.parse(request.responseText);
+        console.log(rows);
+
+        var table = document.getElementById('content');
+        rows.forEach(row => {
+            var tuple = document.createElement('tr');
+            var dataId = document.createElement('td');
+            var textId = document.createTextNode(row.bmi);
+            dataId.appendChild(textId);
+            row.appendChild(dataId);
+            table.appendChild(tuple);
+        });
+    </script>
+</html> 

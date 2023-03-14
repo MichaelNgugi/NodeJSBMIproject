@@ -4,6 +4,7 @@ const port = 3000;
 const bodyParser = require('body-parser');
 const urlEncodedParser = bodyParser.urlencoded({extended: false});
 const fs = require('fs');
+const { report } = require('process');
 const jsonParser = bodyParser.json();
 const fileName = 'BMI.json';
 let bmi = 0;
@@ -24,8 +25,8 @@ app.get('/', function (request, response){
     response.render('BMI');
 });
 
-app.get('/analysis', function (request, response) {
-    response.render('reports');
+app.get('/analysis', function (request, response) { 
+    response.render('reports', {data});
 });
 
 app.post('/process-contacts', urlEncodedParser, function (request, response) {

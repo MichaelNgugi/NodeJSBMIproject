@@ -1,8 +1,8 @@
 const server = 'http://localhost:3000';
-var BMI;
 var weight;
 var height;
 
+/*
 async function fetchBmi() {
     $(document).ready(function(){
         $.ajax({
@@ -18,16 +18,17 @@ async function fetchBmi() {
         });
     });
 }
+*/
 
 
 function populateContent() {
     var table = document.getElementById('content');
-    reports.forEach(report => {
-        var row = document.createElement('tr');
+    rows.forEach(row => {
+        var tuple = document.createElement('tr');
         var dataId = document.createElement('td');
-        var textId = document.createTextNode(report.bmi);
+        var textId = document.createTextNode(row.bmi);
         dataId.appendChild(textId);
         row.appendChild(dataId);
-        table.appendChild(row);
+        table.appendChild(tuple);
     });
 }
