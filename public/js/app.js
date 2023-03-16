@@ -1,4 +1,4 @@
-const server = 'http://localhost:3000';
+const server = process.env.PORT || 3000;
 
 async function fetchBmi() {
     const url = server + '/all';
