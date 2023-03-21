@@ -1,7 +1,7 @@
 const server = process.env.PORT || 3000;
 
 async function fetchBmi() {
-    const url = server + '/all';
+    const url = '/all';
     const options = {
         method: 'GET',
         headers: { 
