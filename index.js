@@ -35,7 +35,6 @@ app.get('/analysis', function (request, response) {
     }
     average = sum/size;
     response.render('reports', {average});
-    console.log(average);
 });
 
 app.get('/all', function (request, response) {
@@ -49,19 +48,29 @@ app.post('/process-contacts', urlEncodedParser, function (request, response) {
 app.post('/process-bmi', urlEncodedParser, function (request, response) {
     var weight = request.body.weight;
     var height = request.body.height;
-    bmi = weight / (height * height);
-    data.push({bmi});
-    if (bmi < 18.5 ){
-        comment = "Underweight";
-    }else if(bmi >= 18.5) {
-        comment = "Normal weight";
-    }else if (bmi >= 25) {
-        comment = "Overweight";
-    }else if (bmi >= 30) {
-        comment = "Obesity";
+    function calculateBMI(weight, height) {
+        bmi = weight / (height * height);
+        return bmi;
     }
+    bmi = calculateBMI(weight, height);
+    data.push({bmi});
+    function bmiStatus(bmi) {
+        var stat;
+        if (bmi < 18.5 ){
+            stat = "Underweight";
+        }else if(bmi >= 18.5) {
+            stat = "Normal weight";
+        }else if (bmi >= 25) {
+            stat = "Overweight";
+        }else if (bmi >= 30) {
+            stat = "Obesity";
+        }
+        return stat;
+    }
+    var comment = bmiStatus(bmi);
     response.render('bmi_report', {bmi, comment});
     fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
+    module.exports = {calculateBMI, bmiStatus};
 });
 
 
