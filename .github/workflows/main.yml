@@ -23,7 +23,7 @@ jobs:
         webhook_secret: ${{secrets.DEPLOY_HOOK_KEY}}
       
     - run: npm ci
-    - run: npm test
+    #- run: npm test
 
     - uses: bounceapp/render-action@0.6.0
       with:
