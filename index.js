@@ -48,21 +48,21 @@ app.post('/process-contacts', urlEncodedParser, function (request, response) {
 app.post('/process-bmi', urlEncodedParser, function (request, response) {
     var weight = request.body.weight;
     var height = request.body.height;
-    function calculateBMI(weight, height) {
-        bmi = weight / (height * height);
-        return bmi;
+    function calculateBMI(a, b) {
+        var calc = a / (b * b);
+        return calc;
     }
     bmi = calculateBMI(weight, height);
     data.push({bmi});
-    function bmiStatus(bmi) {
+    function bmiStatus(value) {
         var stat;
-        if (bmi < 18.5 ){
+        if (value < 18.5 ){
             stat = "Underweight";
-        }else if(bmi >= 18.5) {
+        }else if(value >= 18.5) {
             stat = "Normal weight";
-        }else if (bmi >= 25) {
+        }else if (value >= 25) {
             stat = "Overweight";
-        }else if (bmi >= 30) {
+        }else if (value >= 30) {
             stat = "Obesity";
         }
         return stat;
