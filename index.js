@@ -46,31 +46,14 @@ app.post('/process-contacts', urlEncodedParser, function (request, response) {
 });
 
 app.post('/process-bmi', urlEncodedParser, function (request, response) {
+    const {calculateBMI, bmiStatus} = require('./calculations');
     var weight = request.body.weight;
     var height = request.body.height;
-    function calculateBMI(a, b) {
-        var calc = a / (b * b);
-        return calc;
-    }
     bmi = calculateBMI(weight, height);
     data.push({bmi});
-    function bmiStatus(value) {
-        var stat;
-        if (value < 18.5 ){
-            stat = "Underweight";
-        }else if(value >= 18.5) {
-            stat = "Normal weight";
-        }else if (value >= 25) {
-            stat = "Overweight";
-        }else if (value >= 30) {
-            stat = "Obesity";
-        }
-        return stat;
-    }
     var comment = bmiStatus(bmi);
     response.render('bmi_report', {bmi, comment});
     fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
-    module.exports = {calculateBMI, bmiStatus};
 });
 
 

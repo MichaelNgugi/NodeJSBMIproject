@@ -23,13 +23,14 @@ jobs:
         webhook_secret: ${{secrets.DEPLOY_HOOK_KEY}}
       
     - run: npm ci
-    #- run: npm test
+    - run: npm test
 
-    - uses: bounceapp/render-action@0.6.0
-      with:
-        render-token: ${{secrets.RENDER_API_KEY}}
-        github-token: ${{secrets.ACC_API_KEY}} #This is the Github token
-        service-id: "srv-cg9d9spmbg54mbeamdgg" # This id is unique for each loop
-        retries: 20
-        wait: 16000
-        sleep: 30000
+    
+    #- uses: bounceapp/render-action@0.6.0
+    #  with:
+     #   render-token: ${{secrets.RENDER_API_KEY}}
+      #  github-token: ${{secrets.ACC_API_KEY}} #This is the Github token
+       # service-id: "srv-cg9d9spmbg54mbeamdgg" # This id is unique for each loop
+        #retries: 20
+        #wait: 16000
+        #sleep: 30000

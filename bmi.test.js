@@ -1,4 +1,4 @@
-const {calculateBMI, bmiStatus} = require('./index');
+const {calculateBMI, bmiStatus} = require('./calculations');
 
 test ('50Kg, 1m bmi=50', () => {
     expect(calculateBMI(50, 1)).toBe(50);
