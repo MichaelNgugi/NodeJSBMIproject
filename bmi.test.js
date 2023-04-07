@@ -13,7 +13,8 @@ describe ('testing with puppeteer' , () =>{
     beforeAll(async () => {
         //const browser = await puppeteer.launch({ headless: true });
         //const page = await browser.newPage();
-        await page.goto("/", { waitUntil: 'load' });
+        await page.goto("https://bmi-mike-app.onrender.com/", { waitUntil: 'load' });
+        await page.waitForTimeout(6000);
     });
 
     it('should display analysis page', async () => {
@@ -28,5 +29,5 @@ describe ('testing with puppeteer' , () =>{
         expect(pageTitle).toEqual("BMI Reports");
 
         await browser.close();
-    });
+    }, 70000);
 });

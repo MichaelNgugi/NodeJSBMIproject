@@ -1,5 +1,6 @@
 const config = {
-    "preset": "jest-puppeteer"
+    "preset": "jest-puppeteer",
+    testTimeout: 20000
 }
 
 module.exports = config;
