@@ -6,7 +6,7 @@
         (async () => {
             const browser = await puppeteer.launch({ headless: true });
             const page = await browser.newPage();
-            await page.goto("BMI", { waitUntil: 'load' });
+            await page.goto("/BMI", { waitUntil: 'load' });
 
             const analysisBtn = await page.$('#all_data');
             await analysisBtn.click();
